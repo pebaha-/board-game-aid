@@ -42,6 +42,16 @@ class Players extends React.Component {
     });
   }
 
+  renderPlayerList() {
+    const players = this.state.players;
+    const playerList = players.map((player) =>
+      <div key={player}>
+        {player}
+      </div>
+    );
+    return playerList;
+  }
+
   render() {
     return (
       <div>
@@ -65,6 +75,7 @@ class Players extends React.Component {
               Delete
             </button>
           </form>
+          {this.renderPlayerList()}
           <MainButton />
         </div>
       </div>
