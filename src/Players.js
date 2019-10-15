@@ -12,8 +12,14 @@ class Players extends React.Component {
 
   handlePlayerAdd = (event) => {
     event.preventDefault();
+    const playerName = this.state.playerName;
+    const players = this.state.players;
+    if (players.includes(playerName)) {
+      alert(playerName + " is already a player");
+      return;
+    }
     this.setState({
-      players: this.state.players.concat(this.state.playerName),
+      players: players.concat(playerName),
     });
   }
 
