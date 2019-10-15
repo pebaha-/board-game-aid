@@ -10,11 +10,19 @@ class Players extends React.Component {
     };
   };
 
+  componentDidMount() {
+    this.playerNameInput.focus();
+  };
+
   handlePlayerAdd = (event) => {
     event.preventDefault();
     const playerName = this.state.playerName;
     const players = this.state.players;
-    if (players.includes(playerName)) {
+    if (playerName.length == 0) {
+      alert("You must enter a player name");
+      return;
+    }
+    else if (players.includes(playerName)) {
       alert(playerName + " is already a player");
       return;
     }
@@ -28,7 +36,11 @@ class Players extends React.Component {
     event.preventDefault();
     let playerName = this.state.playerName;
     let players = this.state.players;
-    if (!players.includes(playerName)) {
+    if (playerName.length == 0) {
+      alert("You must enter a player name");
+      return;
+    }
+    else if (!players.includes(playerName)) {
       alert(playerName + " is not a player");
       return;
     }
@@ -69,6 +81,7 @@ class Players extends React.Component {
             <input
               type="text"
               label="player-name"
+              ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
               value={this.state.playerName}
               onChange={this.handlePlayerChange}
             />
