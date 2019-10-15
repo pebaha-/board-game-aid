@@ -12,7 +12,7 @@ function rootReducer(state = initialState, action) {
     }
     else if (action.type === REMOVE_PLAYER) {
         const filteredPlayers = state.players.filter(function (player) {
-            return player.player.player !== action.payload.player.player;
+            return player.player !== action.payload.player;
         });
         return Object.assign({}, state, {
             players: filteredPlayers
