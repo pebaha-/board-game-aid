@@ -5,17 +5,62 @@ class Players extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: {},
+      playerName: "",
+      players: [],
     };
   };
+
+  handlePlayerAdd = (event) => {
+    event.preventDefault();
+    this.setState({
+      players: this.state.players.concat(this.state.playerName),
+    });
+  }
+
+  handlePlayerDelete = (event) => {
+    event.preventDefault();
+    let playerName = this.state.playerName;
+    let players = this.state.players;
+    let filteredPlayers = players.filter(function (name) {
+      return name !== playerName;
+
+    });
+    this.setState({
+      players: filteredPlayers,
+    });
+  }
+
+  handlePlayerChange = (event) => {
+    this.setState({
+      playerName: event.target.value
+    });
+  }
 
   render() {
     return (
       <div>
         <header className="App-header">
           <p>Players</p>
-          <MainButton />
         </header>
+        <div className="App-body">
+          <form>
+            <input
+              type="text"
+              label="player-name"
+              ref={(input) => { this.playerNameInput = input; }}
+              defaultValue={this.state.playerName}
+              onChange={this.handlePlayerChange}
+            />
+            <button
+              onClick={this.handlePlayerAdd}>
+              Add
+            </button>
+            <button onClick={this.handlePlayerDelete}>
+              Delete
+            </button>
+          </form>
+          <MainButton />
+        </div>
       </div>
     );
   }
@@ -24,7 +69,7 @@ class Players extends React.Component {
 function MainButton() {
   return (
     <Link to="/">
-      <button type="button">Go back to main page</button>
+      <button type="button">Go back</button>
     </Link>
   );
 }

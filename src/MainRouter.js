@@ -8,7 +8,7 @@ export default () => (
     <Router history={history}>
         <Switch>
             <Route exact path="/" component={App} key={1} />
-            <Route path="/players" component={Players} key={2} />
+            <Route path="/players" render={(props) => <Players {...props}/> } key={2} />
         </Switch>
     </Router>
 );
