@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 class Players extends React.Component {
   constructor(props) {
@@ -109,5 +110,10 @@ function MainButton() {
   );
 }
 
+function mapStateToProps(state) {
+  return {
+    players: state.players,
+  };
+}
 
-export default Players;
+export default connect(mapStateToProps)(Players);

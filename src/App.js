@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   constructor(props) {
@@ -68,4 +69,8 @@ function PlayersButton() {
   );
 }
 
-export default App;
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps)(App);
