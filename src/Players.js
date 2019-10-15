@@ -20,6 +20,7 @@ class Players extends React.Component {
     }
     this.setState({
       players: players.concat(playerName),
+      playerName: "",
     });
   }
 
@@ -27,12 +28,17 @@ class Players extends React.Component {
     event.preventDefault();
     let playerName = this.state.playerName;
     let players = this.state.players;
+    if (!players.includes(playerName)) {
+      alert(playerName + " is not a player");
+      return;
+    }
     let filteredPlayers = players.filter(function (name) {
       return name !== playerName;
 
     });
     this.setState({
       players: filteredPlayers,
+      playerName: "",
     });
   }
 
@@ -63,8 +69,7 @@ class Players extends React.Component {
             <input
               type="text"
               label="player-name"
-              ref={(input) => { this.playerNameInput = input; }}
-              defaultValue={this.state.playerName}
+              value={this.state.playerName}
               onChange={this.handlePlayerChange}
             />
             <button
