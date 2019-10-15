@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class App extends React.Component {
     this.state = {
       seconds: 15,
     };
+    this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
   };
 
   componentDidMount() {
@@ -16,6 +18,10 @@ class App extends React.Component {
   handleChange(event) {
     const seconds = (event.target.validity.valid) ? event.target.value : this.state.seconds;
     this.setState({ seconds });
+  };
+
+  onSecretHitlerClick(event) {
+
   };
 
   render() {
@@ -29,12 +35,12 @@ class App extends React.Component {
             <tbody>
               <tr>
                 <td>
-                  <button color="red">Secret Hitler</button>
+                  <button onClick={this.onSecretHitlerClick.bind(this)}>Secret Hitler</button>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <button>Edit Players</button>
+                  <PlayersButton />
                 </td>
               </tr>
             </tbody>
@@ -46,12 +52,20 @@ class App extends React.Component {
             type="text"
             pattern="[0-9]*"
             value={this.state.seconds}
-            onInput={this.handleChange.bind(this)}
+            onChange={this.handleChange.bind(this)}
           />
         </div>
       </div>
     );
   }
+}
+
+function PlayersButton() {
+  return (
+    <Link to="/players">
+      <button type="button">Edit players</button>
+    </Link>
+  );
 }
 
 export default App;
