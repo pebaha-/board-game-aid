@@ -30,6 +30,7 @@ class Players extends React.Component {
       playerName: "",
     });
     this.props.addPlayer(playerName);
+    this.playerNameInput.focus();
   }
 
   handlePlayerDelete = (event) => {
@@ -48,6 +49,7 @@ class Players extends React.Component {
       playerName: "",
     });
     this.props.removePlayer(playerName);
+    this.playerNameInput.focus();
   }
 
   handlePlayerChange = (event) => {
