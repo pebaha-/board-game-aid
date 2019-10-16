@@ -69,8 +69,10 @@ function PlayersButton() {
   );
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state, ownProps) {
+  return {
+    players: state.players,
+  };
 }
 
 export default connect(mapStateToProps)(App);

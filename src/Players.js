@@ -7,7 +7,6 @@ class Players extends React.Component {
     super(props);
     this.state = {
       playerName: "",
-      players: [],
     };
   };
 
@@ -18,8 +17,8 @@ class Players extends React.Component {
   handlePlayerAdd = (event) => {
     event.preventDefault();
     const playerName = this.state.playerName;
-    const players = this.state.players;
-    if (playerName.length == 0) {
+    const players = this.props.players;
+    if (playerName.length === 0) {
       alert("You must enter a player name");
       return;
     }
@@ -28,16 +27,16 @@ class Players extends React.Component {
       return;
     }
     this.setState({
-      players: players.concat(playerName),
       playerName: "",
     });
+    this.props.addPlayer(playerName);
   }
 
   handlePlayerDelete = (event) => {
     event.preventDefault();
     let playerName = this.state.playerName;
-    let players = this.state.players;
-    if (playerName.length == 0) {
+    let players = this.props.players;
+    if (playerName.length === 0) {
       alert("You must enter a player name");
       return;
     }
@@ -45,14 +44,10 @@ class Players extends React.Component {
       alert(playerName + " is not a player");
       return;
     }
-    let filteredPlayers = players.filter(function (name) {
-      return name !== playerName;
-
-    });
     this.setState({
-      players: filteredPlayers,
       playerName: "",
     });
+    this.props.removePlayer(playerName);
   }
 
   handlePlayerChange = (event) => {
@@ -62,7 +57,7 @@ class Players extends React.Component {
   }
 
   renderPlayerList() {
-    const players = this.state.players;
+    const players = this.props.players;
     const playerList = players.map((player) =>
       <div key={player}>
         {player}
@@ -110,10 +105,17 @@ function MainButton() {
   );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     players: state.players,
   };
 }
 
-export default connect(mapStateToProps)(Players);
+function mapDispatchToProps(dispatch) {
+  return {
+    addPlayer: (player) => { dispatch({type: 'ADD_PLAYER', player: player }) },
+    removePlayer: (player) => { dispatch({type: 'REMOVE_PLAYER', player: player }) },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Players);
