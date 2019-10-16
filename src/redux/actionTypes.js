@@ -1,2 +1,3 @@
 export const ADD_PLAYER = "ADD_PLAYER";
 export const REMOVE_PLAYER = "REMOVE_PLAYER";
+export const SET_TIMER_DURATION = "SET_TIMER_DURATION";

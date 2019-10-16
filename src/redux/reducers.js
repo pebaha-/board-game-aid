@@ -1,7 +1,8 @@
-import { ADD_PLAYER, REMOVE_PLAYER } from "./actionTypes";
+import { ADD_PLAYER, REMOVE_PLAYER, SET_TIMER_DURATION } from "./actionTypes";
 
 const initialState = {
-    players: []
+    players: [],
+    seconds: 15,
 };
 
 function rootReducer(state = initialState, action) {
@@ -16,6 +17,11 @@ function rootReducer(state = initialState, action) {
         });
         return Object.assign({}, state, {
             players: filteredPlayers
+        });
+    }
+    else if (action.type === SET_TIMER_DURATION) {
+        return Object.assign({}, state, {
+            seconds: action.seconds
         });
     }
     return state;

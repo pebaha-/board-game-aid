@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      seconds: 15,
-    };
     this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
   };
 
@@ -17,8 +14,8 @@ class App extends React.Component {
   };
 
   handleChange(event) {
-    const seconds = (event.target.validity.valid) ? event.target.value : this.state.seconds;
-    this.setState({ seconds });
+    const seconds = (event.target.validity.valid) ? event.target.value : this.props.seconds;
+    this.props.setTimerDuration(seconds);
   };
 
   onSecretHitlerClick(event) {
@@ -52,7 +49,7 @@ class App extends React.Component {
             ref={(input) => { this.secondsInput = input; }}
             type="text"
             pattern="[0-9]*"
-            value={this.state.seconds}
+            value={this.props.seconds}
             onChange={this.handleChange.bind(this)}
           />
         </div>
@@ -72,7 +69,14 @@ function PlayersButton() {
 function mapStateToProps(state, ownProps) {
   return {
     players: state.players,
+    seconds: state.seconds,
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    setTimerDuration: (seconds) => { dispatch({type: 'SET_TIMER_DURATION', seconds: seconds }) },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
