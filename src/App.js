@@ -7,8 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
-  };
-
+  }
   componentDidMount() {
     this.secondsInput.focus();
   };
@@ -19,7 +18,10 @@ class App extends React.Component {
   };
 
   onSecretHitlerClick(event) {
-
+    if (this.props.players.length < 5) {
+      alert("You need at least five players to play. Click 'Edit players' to add more players.")
+      return;
+    }
   };
 
   render() {
@@ -33,12 +35,16 @@ class App extends React.Component {
             <tbody>
               <tr>
                 <td>
-                  <button onClick={this.onSecretHitlerClick.bind(this)}>Secret Hitler</button>
+                  <Link to="/sh">
+                    <button type="button" onClick={this.onSecretHitlerClick}>Secret Hitler</button>
+                  </Link>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <PlayersButton />
+                  <Link to="/players">
+                    <button type="button">Edit players</button>
+                  </Link>
                 </td>
               </tr>
             </tbody>
@@ -58,14 +64,6 @@ class App extends React.Component {
   }
 }
 
-function PlayersButton() {
-  return (
-    <Link to="/players">
-      <button type="button">Edit players</button>
-    </Link>
-  );
-}
-
 function mapStateToProps(state, ownProps) {
   return {
     players: state.players,
@@ -75,7 +73,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setTimerDuration: (seconds) => { dispatch({type: 'SET_TIMER_DURATION', seconds: seconds }) },
+    setTimerDuration: (seconds) => { dispatch({ type: 'SET_TIMER_DURATION', seconds: seconds }) },
   }
 }
 
