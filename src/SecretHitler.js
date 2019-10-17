@@ -8,7 +8,13 @@ class SecretHitler extends React.Component {
     super(props);
     this.state = {
       playerRoles: {},
+      currentPlayer: "",
+      currentRole: "",
+      showRole: false,
+      secondsRemaining: this.props.seconds,
     };
+    this.onShowRoleClick = this.onShowRoleClick.bind(this);
+    this.tick = this.tick.bind(this);
   };
 
   componentDidMount() {
@@ -49,6 +55,11 @@ class SecretHitler extends React.Component {
       playerRoles: this.props.players.map(function (player) {
         return { [player]: rolesToAssign.pop() };
       }),
+    }, () => {
+      this.setState({
+        currentPlayer: this.props.players[0],
+        currentRole: this.state.playerRoles[0][this.props.players[0]]
+      })
     });
   }
 
@@ -69,9 +80,42 @@ class SecretHitler extends React.Component {
     }
 
     return array;
+  };
+
+  tick() {
+    if (this.state.secondsRemaining === 0) {
+      clearInterval(this.intervalHandle);
+      this.setState({
+        showRole: false,
+        secondsRemaining: this.props.seconds,
+      });
+    }
+    else {
+      this.setState({
+        secondsRemaining: this.state.secondsRemaining - 1
+      });
+    }
   }
 
+  onShowRoleClick(event) {
+    this.intervalHandle = setInterval(this.tick, 1000);
+    this.setState({
+      showRole: true,
+    });
+  };
+
   render() {
+    if (this.state.playerRoles.length < this.props.players.length) {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <p>Secret Hitler</p>
+          </header>
+          <div className="App-body">
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -82,13 +126,29 @@ class SecretHitler extends React.Component {
             <tbody>
               <tr>
                 <td>
-                  <Link to="/">
-                    <button type="button">Quit game</button>
-                  </Link>
+                  <div>{this.state.currentPlayer}</div>
                 </td>
               </tr>
               <tr>
                 <td>
+                  <div>{this.state.showRole ? this.state.currentRole : ""}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{this.state.showRole ? this.state.secondsRemaining : ""}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button type="button" onClick={this.onShowRoleClick}>Show role</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <Link to="/">
+                    <button type="button">Quit game</button>
+                  </Link>
                 </td>
               </tr>
             </tbody>
