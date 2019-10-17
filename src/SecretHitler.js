@@ -10,8 +10,11 @@ class SecretHitler extends React.Component {
       playerRoles: {},
       currentPlayer: "",
       currentRole: "",
+      currentPlayerIndex: 0,
       showRole: false,
       secondsRemaining: this.props.seconds,
+      disabledRoleButton: false,
+      playersCycled: false,
     };
     this.onShowRoleClick = this.onShowRoleClick.bind(this);
     this.tick = this.tick.bind(this);
@@ -57,8 +60,8 @@ class SecretHitler extends React.Component {
       }),
     }, () => {
       this.setState({
-        currentPlayer: this.props.players[0],
-        currentRole: this.state.playerRoles[0][this.props.players[0]]
+        currentPlayer: this.props.players[this.state.currentPlayerIndex],
+        currentRole: this.state.playerRoles[this.state.currentPlayerIndex][this.props.players[this.state.currentPlayerIndex]]
       })
     });
   }
@@ -87,8 +90,25 @@ class SecretHitler extends React.Component {
       clearInterval(this.intervalHandle);
       this.setState({
         showRole: false,
-        secondsRemaining: this.props.seconds,
+        disabledRoleButton: false,
       });
+      // Did we cycle through all players?
+      if (this.state.currentPlayerIndex === this.props.players.length - 1) {
+        this.setState({
+          playersCycled: true,
+        });
+      }
+      else {
+        this.setState({
+          secondsRemaining: this.props.seconds,
+          currentPlayerIndex: this.state.currentPlayerIndex + 1,
+        }, () => {
+          this.setState({
+            currentPlayer: this.props.players[this.state.currentPlayerIndex],
+            currentRole: this.state.playerRoles[this.state.currentPlayerIndex][this.props.players[this.state.currentPlayerIndex]]
+          })
+        });
+      }
     }
     else {
       this.setState({
@@ -101,6 +121,7 @@ class SecretHitler extends React.Component {
     this.intervalHandle = setInterval(this.tick, 1000);
     this.setState({
       showRole: true,
+      disabledRoleButton: true,
     });
   };
 
@@ -112,6 +133,18 @@ class SecretHitler extends React.Component {
             <p>Secret Hitler</p>
           </header>
           <div className="App-body">
+          </div>
+        </div>
+      );
+    }
+    if (this.state.playersCycled) {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <p>Secret Hitler</p>
+          </header>
+          <div className="App-body">
+            <p>Done cycling players!</p>
           </div>
         </div>
       );
@@ -141,7 +174,7 @@ class SecretHitler extends React.Component {
               </tr>
               <tr>
                 <td>
-                  <button type="button" onClick={this.onShowRoleClick}>Show role</button>
+                  <button type="button" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</button>
                 </td>
               </tr>
               <tr>
