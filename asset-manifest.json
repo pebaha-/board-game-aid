@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/board-game-aid/static/css/main.26cbd387.chunk.css",
+    "main.js": "/board-game-aid/static/js/main.71f871fb.chunk.js",
+    "main.js.map": "/board-game-aid/static/js/main.71f871fb.chunk.js.map",
+    "runtime-main.js": "/board-game-aid/static/js/runtime-main.aa6a46e6.js",
+    "runtime-main.js.map": "/board-game-aid/static/js/runtime-main.aa6a46e6.js.map",
+    "static/js/2.cf90e4e7.chunk.js": "/board-game-aid/static/js/2.cf90e4e7.chunk.js",
+    "static/js/2.cf90e4e7.chunk.js.map": "/board-game-aid/static/js/2.cf90e4e7.chunk.js.map",
+    "index.html": "/board-game-aid/index.html",
+    "precache-manifest.0c16e1a7a3433239a0344ab1edb58965.js": "/board-game-aid/precache-manifest.0c16e1a7a3433239a0344ab1edb58965.js",
+    "service-worker.js": "/board-game-aid/service-worker.js",
+    "static/css/main.26cbd387.chunk.css.map": "/board-game-aid/static/css/main.26cbd387.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aa6a46e6.js",
+    "static/js/2.cf90e4e7.chunk.js",
+    "static/css/main.26cbd387.chunk.css",
+    "static/js/main.71f871fb.chunk.js"
+  ]
+}
