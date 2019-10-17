@@ -146,6 +146,11 @@ class SecretHitler extends React.Component {
           <div className="App-body">
             <p>Done cycling players!</p>
           </div>
+          <div>
+            <Link to="/">
+              <button type="button">Quit game</button>
+            </Link>
+          </div>
         </div>
       );
     }
@@ -175,13 +180,6 @@ class SecretHitler extends React.Component {
               <tr>
                 <td>
                   <button type="button" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Link to="/">
-                    <button type="button">Quit game</button>
-                  </Link>
                 </td>
               </tr>
             </tbody>
