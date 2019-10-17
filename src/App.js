@@ -18,6 +18,7 @@ class App extends React.Component {
   };
 
   onSecretHitlerClick(event) {
+    // @TODO: do not hardcore minimum required players
     if (this.props.players.length < 5) {
       alert("You need at least five players to play. Click 'Edit players' to add more players.")
       return;

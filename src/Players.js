@@ -26,6 +26,10 @@ class Players extends React.Component {
       alert(playerName + " is already a player");
       return;
     }
+    else if (players.length === 10) {
+      alert("You cannot add more than ten players. Please remove a player before adding a new one.");
+      return;
+    }
     this.setState({
       playerName: "",
     });
@@ -115,8 +119,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addPlayer: (player) => { dispatch({type: 'ADD_PLAYER', player: player }) },
-    removePlayer: (player) => { dispatch({type: 'REMOVE_PLAYER', player: player }) },
+    addPlayer: (player) => { dispatch({ type: 'ADD_PLAYER', player: player }) },
+    removePlayer: (player) => { dispatch({ type: 'REMOVE_PLAYER', player: player }) },
   }
 }
 

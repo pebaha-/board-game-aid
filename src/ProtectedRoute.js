@@ -10,6 +10,7 @@ class ProtectedRoute extends React.Component {
       <Route
         {...props}
         render={props => (
+          // @TODO: do not hardcore minimum required players
           this.props.players.length >= 5 ? <Component {...props} /> : <Redirect to="/" />
         )}
       />
