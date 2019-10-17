@@ -1,7 +1,7 @@
 {
   "name": "boardgamehelper",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://pebaha-.github.io/board-game-aid",
   "dependencies": {
     "@babel/core": "^7.6.4",
