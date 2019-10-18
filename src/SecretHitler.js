@@ -171,6 +171,7 @@ class SecretHitler extends React.Component {
     const players = this.props.players;
     this.setState({
       currentPlayerIndex: nextPlayerIndex,
+      showParty: false,
     }, () => {
       this.setState({
         currentPlayer: players[this.state.currentPlayerIndex],
@@ -244,7 +245,7 @@ class SecretHitler extends React.Component {
                 </tr>
                 <tr>
                   <td>
-                    <button type="button" onClick={this.onPartyClick}>{this.state.showParty ? "Show party" : "Hide party"}</button>
+                    <button type="button" onClick={this.onPartyClick}>{this.state.showParty ? "Hide party" : "Show party"}</button>
                   </td>
                 </tr>
                 <tr>
