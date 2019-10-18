@@ -12,6 +12,7 @@ class SecretHitler extends React.Component {
       currentRole: "",
       currentPlayerIndex: 0,
       showRole: false,
+      showParty: false,
       secondsRemaining: this.props.seconds,
       disabledRoleButton: false,
       playersCycled: false,
@@ -20,6 +21,8 @@ class SecretHitler extends React.Component {
     this.tick = this.tick.bind(this);
     this.getOtherFascists = this.getOtherFascists.bind(this);
     this.getHitler = this.getHitler.bind(this);
+    this.onPartyClick = this.onPartyClick.bind(this);
+    this.onNextPlayerClick = this.onNextPlayerClick.bind(this);
   };
 
   componentDidMount() {
@@ -68,7 +71,7 @@ class SecretHitler extends React.Component {
         currentRole: this.state.playerRoles[players[this.state.currentPlayerIndex]]
       })
     });
-  }
+  };
 
   shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -119,7 +122,7 @@ class SecretHitler extends React.Component {
         secondsRemaining: this.state.secondsRemaining - 1
       });
     }
-  }
+  };
 
   onShowRoleClick(event) {
     this.intervalHandle = setInterval(this.tick, 1000);
@@ -142,9 +145,39 @@ class SecretHitler extends React.Component {
     return this.getKeyByValue(this.state.playerRoles, "Hitler");
   };
 
+  getParty() {
+    if (this.state.currentRole === "Hitler") {
+      return "Fascist";
+    }
+    else return this.state.currentRole;
+  };
+
   getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
-  }
+  };
+
+  onPartyClick() {
+    this.setState({
+      showParty: !this.state.showParty,
+    });
+  };
+
+  onNextPlayerClick() {
+    let nextPlayerIndex = 0;
+    // If we're not yet at the last player
+    if (this.state.currentPlayerIndex < this.props.players.length - 1) {
+      nextPlayerIndex = this.state.currentPlayerIndex + 1;
+    }
+    const players = this.props.players;
+    this.setState({
+      currentPlayerIndex: nextPlayerIndex,
+    }, () => {
+      this.setState({
+        currentPlayer: players[this.state.currentPlayerIndex],
+        currentRole: this.state.playerRoles[players[this.state.currentPlayerIndex]]
+      })
+    });
+  };
 
   renderRoleInfo() {
     return (
@@ -197,7 +230,30 @@ class SecretHitler extends React.Component {
             <p>Secret Hitler</p>
           </header>
           <div className="App-body">
-            <p>Done cycling players!</p>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <div>{this.state.currentPlayer}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div>{this.state.showParty ? this.getParty() : ""}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button type="button" onClick={this.onPartyClick}>{this.state.showParty ? "Show party" : "Hide party"}</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button type="button" onClick={this.onNextPlayerClick}>Next player</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div>
             <Link to="/">
@@ -208,7 +264,6 @@ class SecretHitler extends React.Component {
       );
     }
     return (
-      // @TODO: cleanup redundant this.state.showRole checks
       <div className="App">
         <header className="App-header">
           <p>Secret Hitler</p>
