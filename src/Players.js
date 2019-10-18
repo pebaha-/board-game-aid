@@ -85,7 +85,7 @@ class Players extends React.Component {
             <Form.Row>
               <Form.Group controlId="formPlayer">
                 <Form.Control
-                  type="email"
+                  type="text"
                   placeholder="Enter player name"
                   ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
                   value={this.state.playerName}
@@ -96,10 +96,10 @@ class Players extends React.Component {
             <Form.Row>
               <Button variant="success" onClick={this.handlePlayerAdd}>
                 Add
-            </Button>
+              </Button>
               <Button variant="danger" onClick={this.handlePlayerDelete}>
                 Remove
-            </Button>
+              </Button>
             </Form.Row>
           </Form>
           {this.renderPlayerList()}
