@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 class SecretHitler extends React.Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class SecretHitler extends React.Component {
       secondsRemaining: this.props.seconds,
       disabledRoleButton: false,
       playersCycled: false,
+      showModal: false,
+      quitGame: false,
     };
     this.onShowRoleClick = this.onShowRoleClick.bind(this);
     this.tick = this.tick.bind(this);
@@ -24,6 +27,9 @@ class SecretHitler extends React.Component {
     this.getHitler = this.getHitler.bind(this);
     this.onPartyClick = this.onPartyClick.bind(this);
     this.onNextPlayerClick = this.onNextPlayerClick.bind(this);
+    this.showQuitModal = this.showQuitModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleQuitModal = this.handleQuitModal.bind(this);
   };
 
   componentDidMount() {
@@ -211,9 +217,30 @@ class SecretHitler extends React.Component {
         </tr>
       </React.Fragment>
     );
-  }
+  };
+
+  showQuitModal() {
+    this.setState({
+      showModal: true,
+    });
+  };
+
+  handleCloseModal() {
+    this.setState({
+      showModal: false,
+    });
+  };
+
+  handleQuitModal() {
+    this.setState({
+      quitGame: true,
+    });
+  };
 
   render() {
+    if (this.state.quitGame) {
+      return <Redirect push to="/"/>;
+    }
     if (this.state.playerRoles.length < this.props.players.length || !this.state.currentPlayer) {
       return (
         <div className="App">
@@ -257,11 +284,21 @@ class SecretHitler extends React.Component {
               </tbody>
             </table>
           </div>
-          <div>
-            <Link to="/">
-              <Button variant="danger">Quit game</Button>
-            </Link>
-          </div>
+          <Button variant="danger" onClick={this.showQuitModal}>Quit game</Button>
+          <Modal show={this.state.showModal} onHide={this.handleClose}>
+            <Modal.Header>
+              <Modal.Title>Quit game</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Would you like to quit the game and go back to the main menu?</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={this.handleCloseModal}>
+                Cancel
+              </Button>
+              <Button variant="danger" onClick={this.handleQuitModal}>
+                Quit Game
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
       );
     }
