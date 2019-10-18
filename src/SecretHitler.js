@@ -18,6 +18,8 @@ class SecretHitler extends React.Component {
     };
     this.onShowRoleClick = this.onShowRoleClick.bind(this);
     this.tick = this.tick.bind(this);
+    this.getOtherFascists = this.getOtherFascists.bind(this);
+    this.getHitler = this.getHitler.bind(this);
   };
 
   componentDidMount() {
@@ -53,15 +55,17 @@ class SecretHitler extends React.Component {
     }
 
     rolesToAssign = this.shuffle(rolesToAssign);
+    const players = this.props.players;
 
     this.setState({
-      playerRoles: this.props.players.map(function (player) {
-        return { [player]: rolesToAssign.pop() };
-      }),
+      playerRoles: rolesToAssign.reduce(function (result, field, index) {
+        result[players[index]] = field;
+        return result;
+      }, {}),
     }, () => {
       this.setState({
-        currentPlayer: this.props.players[this.state.currentPlayerIndex],
-        currentRole: this.state.playerRoles[this.state.currentPlayerIndex][this.props.players[this.state.currentPlayerIndex]]
+        currentPlayer: players[this.state.currentPlayerIndex],
+        currentRole: this.state.playerRoles[players[this.state.currentPlayerIndex]]
       })
     });
   }
@@ -105,7 +109,7 @@ class SecretHitler extends React.Component {
         }, () => {
           this.setState({
             currentPlayer: this.props.players[this.state.currentPlayerIndex],
-            currentRole: this.state.playerRoles[this.state.currentPlayerIndex][this.props.players[this.state.currentPlayerIndex]]
+            currentRole: this.state.playerRoles[this.props.players[this.state.currentPlayerIndex]]
           })
         });
       }
@@ -125,8 +129,25 @@ class SecretHitler extends React.Component {
     });
   };
 
+  getOtherFascists() {
+    const playerRoles = this.state.playerRoles;
+    const currentPlayer = this.state.currentPlayer;
+    let otherFascists = this.props.players.filter(function (player) {
+      return playerRoles[player] === "Fascist" && player !== currentPlayer;
+    });
+    return otherFascists.join(", ");
+  };
+
+  getHitler() {
+    return this.getKeyByValue(this.state.playerRoles, "Hitler");
+  };
+
+  getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+
   render() {
-    if (this.state.playerRoles.length < this.props.players.length) {
+    if (this.state.playerRoles.length < this.props.players.length || !this.state.currentPlayer) {
       return (
         <div className="App">
           <header className="App-header">
@@ -155,6 +176,7 @@ class SecretHitler extends React.Component {
       );
     }
     return (
+      // @TODO: cleanup redundant this.state.showRole checks
       <div className="App">
         <header className="App-header">
           <p>Secret Hitler</p>
@@ -169,7 +191,22 @@ class SecretHitler extends React.Component {
               </tr>
               <tr>
                 <td>
-                  <div>{this.state.showRole ? this.state.currentRole : ""}</div>
+                  <div>{this.state.showRole ? "Role: " + this.state.currentRole : ""}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{this.state.currentRole === "Fascist" && this.props.players.length > 6 && this.state.showRole ? "Fascists: " + this.getOtherFascists() : ""}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{this.state.currentRole === "Fascist" && this.state.showRole ? "Hitler: " + this.getHitler() : ""}</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>{this.state.currentRole === "Hitler" && this.props.players.length < 7 && this.state.showRole ? "Fascist: " + this.getOtherFascists() : ""}</div>
                 </td>
               </tr>
               <tr>
