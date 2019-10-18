@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8cd02a060a9a2e04264ad8884f1fa186",
+    "revision": "69c8d29b499da623d5eaaf3711c5f378",
     "url": "/board-game-aid/index.html"
   },
   {
-    "revision": "e619cc111da814f263a5",
+    "revision": "061e137a909b0dd4fe1b",
     "url": "/board-game-aid/static/css/main.26cbd387.chunk.css"
   },
   {
-    "revision": "3363c7599e8d99134bbe",
-    "url": "/board-game-aid/static/js/2.e425e892.chunk.js"
+    "revision": "8d0377b7bc008e957b2e",
+    "url": "/board-game-aid/static/js/2.32cbf755.chunk.js"
   },
   {
-    "revision": "e619cc111da814f263a5",
-    "url": "/board-game-aid/static/js/main.028ec0be.chunk.js"
+    "revision": "061e137a909b0dd4fe1b",
+    "url": "/board-game-aid/static/js/main.1ffe8863.chunk.js"
   },
   {
     "revision": "4a1a7a60277a72c2bfdc",
