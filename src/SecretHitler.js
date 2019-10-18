@@ -146,6 +146,38 @@ class SecretHitler extends React.Component {
     return Object.keys(object).find(key => object[key] === value);
   }
 
+  renderRoleInfo() {
+    return (
+      <React.Fragment>
+        <tr>
+          <td>
+            <div>{"Role: " + this.state.currentRole}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{this.state.currentRole === "Fascist" && this.props.players.length > 6 ? "Fascists: " + this.getOtherFascists() : ""}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{this.state.currentRole === "Fascist" ? "Hitler: " + this.getHitler() : ""}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{this.state.currentRole === "Hitler" && this.props.players.length < 7 ? "Fascist: " + this.getOtherFascists() : ""}</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>{this.state.secondsRemaining}</div>
+          </td>
+        </tr>
+      </React.Fragment>
+    );
+  }
+
   render() {
     if (this.state.playerRoles.length < this.props.players.length || !this.state.currentPlayer) {
       return (
@@ -189,31 +221,7 @@ class SecretHitler extends React.Component {
                   <div>{this.state.currentPlayer}</div>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <div>{this.state.showRole ? "Role: " + this.state.currentRole : ""}</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>{this.state.currentRole === "Fascist" && this.props.players.length > 6 && this.state.showRole ? "Fascists: " + this.getOtherFascists() : ""}</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>{this.state.currentRole === "Fascist" && this.state.showRole ? "Hitler: " + this.getHitler() : ""}</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>{this.state.currentRole === "Hitler" && this.props.players.length < 7 && this.state.showRole ? "Fascist: " + this.getOtherFascists() : ""}</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div>{this.state.showRole ? this.state.secondsRemaining : ""}</div>
-                </td>
-              </tr>
+              {this.state.showRole ? this.renderRoleInfo() : null}
               <tr>
                 <td>
                   <button type="button" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</button>
