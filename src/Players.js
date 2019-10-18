@@ -12,10 +12,6 @@ class Players extends React.Component {
     };
   };
 
-  componentDidMount() {
-    this.playerNameInput.focus();
-  };
-
   handlePlayerAdd = (event) => {
     event.preventDefault();
     const playerName = this.state.playerName;
@@ -36,7 +32,6 @@ class Players extends React.Component {
       playerName: "",
     });
     this.props.addPlayer(playerName);
-    this.playerNameInput.focus();
   }
 
   handlePlayerDelete = (event) => {
@@ -55,7 +50,6 @@ class Players extends React.Component {
       playerName: "",
     });
     this.props.removePlayer(playerName);
-    this.playerNameInput.focus();
   }
 
   handlePlayerChange = (event) => {
@@ -87,7 +81,6 @@ class Players extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder="Enter player name"
-                  ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
                   value={this.state.playerName}
                   onChange={this.handlePlayerChange}
                 />

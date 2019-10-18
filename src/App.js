@@ -10,9 +10,6 @@ class App extends React.Component {
     super(props);
     this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
   }
-  componentDidMount() {
-    this.secondsInput.focus();
-  };
 
   handleChange(event) {
     const seconds = (event.target.validity.valid) ? event.target.value : this.props.seconds;
@@ -58,7 +55,6 @@ class App extends React.Component {
               <Form.Control
                 type="text"
                 pattern="[0-9]*"
-                ref={(input) => { this.secondsInput = input; }}
                 placeholder="Enter role timer in seconds"
                 value={this.props.seconds}
                 onChange={this.handleChange.bind(this)}
