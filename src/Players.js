@@ -14,7 +14,7 @@ class Players extends React.Component {
 
   handlePlayerAdd = (event) => {
     event.preventDefault();
-    const playerName = this.state.playerName;
+    const playerName = this.state.playerName.trim();
     const players = this.props.players;
     if (playerName.length === 0) {
       alert("You must enter a player name");
@@ -36,7 +36,7 @@ class Players extends React.Component {
 
   handlePlayerDelete = (event) => {
     event.preventDefault();
-    let playerName = this.state.playerName;
+    let playerName = this.state.playerName.trim();
     let players = this.props.players;
     if (playerName.length === 0) {
       alert("You must enter a player name");
