@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,28 +39,32 @@ class App extends React.Component {
               <tr>
                 <td>
                   <Link to="/sh">
-                    <button type="button" onClick={this.onSecretHitlerClick}>Secret Hitler</button>
+                    <Button variant="info" onClick={this.onSecretHitlerClick}>Secret Hitler</Button>
                   </Link>
                 </td>
               </tr>
               <tr>
                 <td>
                   <Link to="/players">
-                    <button type="button">Edit players</button>
+                    <Button variant="info">Edit players</Button>
                   </Link>
                 </td>
               </tr>
             </tbody>
           </table>
-          <p>Role Timer Seconds</p>
-          <input
-            label="test"
-            ref={(input) => { this.secondsInput = input; }}
-            type="text"
-            pattern="[0-9]*"
-            value={this.props.seconds}
-            onChange={this.handleChange.bind(this)}
-          />
+          <Form>
+            <Form.Group controlId="formRoleSeconds">
+              <Form.Label>Role Timer Seconds</Form.Label>
+              <Form.Control
+                type="text"
+                pattern="[0-9]*"
+                ref={(input) => { this.secondsInput = input; }}
+                placeholder="Enter role timer in seconds"
+                value={this.props.seconds}
+                onChange={this.handleChange.bind(this)}
+              />
+            </Form.Group>
+          </Form>
         </div>
       </div>
     );

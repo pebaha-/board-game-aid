@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 
 class SecretHitler extends React.Component {
   constructor(props) {
@@ -245,12 +246,12 @@ class SecretHitler extends React.Component {
                 </tr>
                 <tr>
                   <td>
-                    <button type="button" onClick={this.onPartyClick}>{this.state.showParty ? "Hide party" : "Show party"}</button>
+                    <Button variant="info" onClick={this.onPartyClick}>{this.state.showParty ? "Hide party" : "Show party"}</Button>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <button type="button" onClick={this.onNextPlayerClick}>Next player</button>
+                    <Button variant="info" onClick={this.onNextPlayerClick}>Next player</Button>
                   </td>
                 </tr>
               </tbody>
@@ -258,7 +259,7 @@ class SecretHitler extends React.Component {
           </div>
           <div>
             <Link to="/">
-              <button type="button">Quit game</button>
+              <Button variant="danger">Quit game</Button>
             </Link>
           </div>
         </div>
@@ -280,7 +281,7 @@ class SecretHitler extends React.Component {
               {this.state.showRole ? this.renderRoleInfo() : null}
               <tr>
                 <td>
-                  <button type="button" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</button>
+                  <Button variant="info" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</Button>
                 </td>
               </tr>
             </tbody>

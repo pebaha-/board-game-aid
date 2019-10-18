@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class Players extends React.Component {
   constructor(props) {
@@ -79,36 +81,37 @@ class Players extends React.Component {
           <p>Players</p>
         </header>
         <div className="App-body">
-          <form>
-            <input
-              type="text"
-              label="player-name"
-              ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
-              value={this.state.playerName}
-              onChange={this.handlePlayerChange}
-            />
-            <button
-              onClick={this.handlePlayerAdd}>
-              Add
-            </button>
-            <button onClick={this.handlePlayerDelete}>
-              Delete
-            </button>
-          </form>
+          <Form>
+            <Form.Row>
+              <Form.Group controlId="formPlayer">
+                <Form.Control
+                  type="email"
+                  placeholder="Enter player name"
+                  ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
+                  value={this.state.playerName}
+                  onChange={this.handlePlayerChange}
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Button variant="success" onClick={this.handlePlayerAdd}>
+                Add
+            </Button>
+              <Button variant="danger" onClick={this.handlePlayerDelete}>
+                Remove
+            </Button>
+            </Form.Row>
+          </Form>
           {this.renderPlayerList()}
-          <MainButton />
+          <Link to="/">
+            <Button variant="secondary">
+              Go back
+            </Button>
+          </Link>
         </div>
       </div>
     );
   }
-}
-
-function MainButton() {
-  return (
-    <Link to="/">
-      <button type="button">Go back</button>
-    </Link>
-  );
 }
 
 function mapStateToProps(state, ownProps) {
