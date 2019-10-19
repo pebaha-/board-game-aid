@@ -53,8 +53,9 @@ class App extends React.Component {
             <Form.Group controlId="formRoleSeconds">
               <Form.Label>Role Timer Seconds</Form.Label>
               <Form.Control
-                type="text"
-                pattern="[0-9]*"
+                type="number"
+                min="1"
+                max="60"
                 placeholder="Enter role timer in seconds"
                 value={this.props.seconds}
                 onChange={this.handleChange.bind(this)}
