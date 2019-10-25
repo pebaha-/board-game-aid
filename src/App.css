@@ -28,6 +28,27 @@
   color: #09d3ac;
 }
 
+.players-form {
+  padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-container > div {
+  margin: 8px 12px 8px 12px;
+}
+
+.players-list {
+  min-height: 300px;
+}
+
+.player-element {
+  list-style-type: none;
+}
+
 body {
   background-color: #282c34;
 }

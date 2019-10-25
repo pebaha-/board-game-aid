@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 class Players extends React.Component {
   constructor(props) {
@@ -61,9 +62,9 @@ class Players extends React.Component {
   renderPlayerList() {
     const players = this.props.players;
     const playerList = players.map((player) =>
-      <div key={player}>
+      <li className="player-element" key={player}>
         {player}
-      </div>
+      </li>
     );
     return playerList;
   }
@@ -75,7 +76,7 @@ class Players extends React.Component {
           <p>Players</p>
         </header>
         <div className="App-body">
-          <Form>
+          <Form className="players-form">
             <Form.Row>
               <Form.Group controlId="formPlayer">
                 <Form.Control
@@ -86,21 +87,31 @@ class Players extends React.Component {
                 />
               </Form.Group>
             </Form.Row>
-            <Form.Row>
-              <Button variant="success" onClick={this.handlePlayerAdd}>
-                Add
+            <Form.Row className="flex-container">
+              <div>
+                <Button variant="success" onClick={this.handlePlayerAdd}>
+                  Add
               </Button>
-              <Button variant="danger" onClick={this.handlePlayerDelete}>
-                Remove
+              </div>
+              <div>
+                <Button variant="danger" onClick={this.handlePlayerDelete}>
+                  Remove
               </Button>
+              </div>
             </Form.Row>
           </Form>
-          {this.renderPlayerList()}
-          <Link to="/">
-            <Button variant="secondary">
-              Go back
+          <ul>
+            <ListGroup className="players-list">
+              {this.renderPlayerList()}
+            </ListGroup>
+          </ul>
+          <div>
+            <Link to="/">
+              <Button variant="secondary">
+                Go back
             </Button>
-          </Link>
+            </Link>
+          </div>
         </div>
       </div>
     );
