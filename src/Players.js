@@ -47,6 +47,7 @@ class Players extends React.Component {
         playerName: "",
       });
       this.props.addPlayer(playerName);
+      this.playerNameInput.focus();
     }
   }
 
@@ -72,6 +73,7 @@ class Players extends React.Component {
       playerName: "",
     });
     this.props.removePlayer(playerName);
+    this.playerNameInput.focus();
   }
 
   handlePlayerChange = (event) => {
@@ -115,6 +117,7 @@ class Players extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder="Enter player name"
+                  ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
                   value={this.state.playerName}
                   onChange={this.handlePlayerChange}
                 />
