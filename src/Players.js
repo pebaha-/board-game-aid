@@ -4,37 +4,50 @@ import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
 
 class Players extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       playerName: "",
+      modalBody: "",
+      showModal: false,
     };
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   };
-
-  // @TODO: replace alerts with React Modal
 
   handlePlayerAdd = (event) => {
     event.preventDefault();
     const playerName = this.state.playerName.trim();
     const players = this.props.players;
     if (playerName.length === 0) {
-      alert("You must enter a player name");
+      this.setState({
+        modalBody: "You must enter a player name.",
+        showModal: true,
+      });
       return;
     }
     else if (players.includes(playerName)) {
-      alert(playerName + " is already a player");
+      this.setState({
+        modalBody: playerName + " is already a player.",
+        showModal: true,
+      });
       return;
     }
     else if (players.length === 10) {
-      alert("You cannot add more than ten players. Please remove a player before adding a new one.");
+      this.setState({
+        modalBody: "You cannot add more than ten players. Please remove a player before adding a new one.",
+        showModal: true,
+      });
       return;
     }
-    this.setState({
-      playerName: "",
-    });
-    this.props.addPlayer(playerName);
+    else {
+      this.setState({
+        playerName: "",
+      });
+      this.props.addPlayer(playerName);
+    }
   }
 
   handlePlayerDelete = (event) => {
@@ -42,11 +55,17 @@ class Players extends React.Component {
     let playerName = this.state.playerName.trim();
     let players = this.props.players;
     if (playerName.length === 0) {
-      alert("You must enter a player name");
+      this.setState({
+        modalBody: "You must enter a player name.",
+        showModal: true,
+      });
       return;
     }
     else if (!players.includes(playerName)) {
-      alert(playerName + " is not a player");
+      this.setState({
+        modalBody: playerName + " is not a player.",
+        showModal: true,
+      });
       return;
     }
     this.setState({
@@ -76,6 +95,12 @@ class Players extends React.Component {
 
     return playerList;
   }
+
+  handleCloseModal() {
+    this.setState({
+      showModal: false,
+    });
+  };
 
   render() {
     return (
@@ -123,6 +148,17 @@ class Players extends React.Component {
             </Link>
           </div>
         </div>
+        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+          <Modal.Header>
+            <Modal.Title>Error adding player</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{this.state.modalBody}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseModal}>
+              Ok
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
