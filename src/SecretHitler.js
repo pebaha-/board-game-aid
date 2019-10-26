@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
 
 class SecretHitler extends React.Component {
   constructor(props) {
@@ -190,27 +191,27 @@ class SecretHitler extends React.Component {
   renderRoleInfo() {
     return (
       <React.Fragment>
-        <tr>
+        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
             <div>{"Role: " + this.state.currentRole}</div>
           </td>
         </tr>
-        <tr>
+        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
             <div>{this.state.currentRole === "Fascist" && this.props.players.length > 6 ? "Fascists: " + this.getOtherFascists() : ""}</div>
           </td>
         </tr>
-        <tr>
+        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
             <div>{this.state.currentRole === "Fascist" ? "Hitler: " + this.getHitler() : ""}</div>
           </td>
         </tr>
-        <tr>
+        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
             <div>{this.state.currentRole === "Hitler" && this.props.players.length < 7 ? "Fascist: " + this.getOtherFascists() : ""}</div>
           </td>
         </tr>
-        <tr>
+        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
             <div>{this.state.secondsRemaining}</div>
           </td>
@@ -239,7 +240,7 @@ class SecretHitler extends React.Component {
 
   render() {
     if (this.state.quitGame) {
-      return <Redirect push to="/"/>;
+      return <Redirect push to="/" />;
     }
     if (this.state.playerRoles.length < this.props.players.length || !this.state.currentPlayer) {
       return (
@@ -259,16 +260,16 @@ class SecretHitler extends React.Component {
             <p>Secret Hitler</p>
           </header>
           <div className="App-body">
-            <table>
+            <Table borderless size="sm" className="players-table">
               <tbody>
                 <tr>
                   <td>
                     <div>{this.state.currentPlayer}</div>
                   </td>
                 </tr>
-                <tr>
+                <tr className={this.state.showParty ? "visible-party-info" : "hidden-party-info"}>
                   <td>
-                    <div>{this.state.showParty ? this.getParty() : ""}</div>
+                    {this.getParty()}
                   </td>
                 </tr>
                 <tr>
@@ -282,7 +283,7 @@ class SecretHitler extends React.Component {
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </Table>
           </div>
           <Button variant="danger" onClick={this.showQuitModal}>Quit game</Button>
           <Modal show={this.state.showModal} onHide={this.handleClose}>
@@ -308,21 +309,21 @@ class SecretHitler extends React.Component {
           <p>Secret Hitler</p>
         </header>
         <div className="App-body">
-          <table>
+          <Table borderless size="sm" className="players-table">
             <tbody>
               <tr>
                 <td>
                   <div>{this.state.currentPlayer}</div>
                 </td>
               </tr>
-              {this.state.showRole ? this.renderRoleInfo() : null}
+              {this.renderRoleInfo()}
               <tr>
                 <td>
                   <Button variant="info" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</Button>
                 </td>
               </tr>
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );

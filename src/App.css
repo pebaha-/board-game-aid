@@ -51,6 +51,22 @@
   visibility: hidden;
 }
 
+.visible-role-info {
+  visibility: visible;
+}
+
+.hidden-role-info {
+  visibility: hidden;
+}
+
+.visible-party-info {
+  visibility: visible;
+}
+
+.hidden-party-info {
+  visibility: hidden;
+}
+
 body {
   background-color: #282c34;
 }

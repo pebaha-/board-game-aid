@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 
 class App extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class App extends React.Component {
           <p>Board Game Aid</p>
         </header>
         <div className="App-body">
-          <table>
+          <Table borderless size="sm">
             <tbody>
               <tr>
                 <td>
@@ -48,7 +49,7 @@ class App extends React.Component {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </Table>
           <Form>
             <Form.Group controlId="formRoleSeconds">
               <Form.Label>Role Timer Seconds</Form.Label>
