@@ -13,6 +13,8 @@ class Players extends React.Component {
     };
   };
 
+  // @TODO: replace alerts with React Modal
+
   handlePlayerAdd = (event) => {
     event.preventDefault();
     const playerName = this.state.playerName.trim();

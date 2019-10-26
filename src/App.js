@@ -1,15 +1,21 @@
 import React from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false,
+      redirectToSecretHitler: false,
+    };
     this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   handleChange(event) {
@@ -17,15 +23,30 @@ class App extends React.Component {
     this.props.setTimerDuration(seconds);
   };
 
-  onSecretHitlerClick(event) {
+  onSecretHitlerClick() {
     // @TODO: do not hardcore minimum required players
     if (this.props.players.length < 5) {
-      alert("You need at least five players to play. Click 'Edit players' to add more players.")
-      return;
+      this.setState({
+        showModal: true,
+      });
+    }
+    else {
+      this.setState({
+        redirectToSecretHitler: true,
+      });
     }
   };
 
+  handleCloseModal() {
+    this.setState({
+      showModal: false,
+    });
+  };
+
   render() {
+    if (this.state.redirectToSecretHitler) {
+      return <Redirect push to="/sh" />;
+    }
     return (
       <div className="App">
         <header className="App-header">
@@ -36,9 +57,7 @@ class App extends React.Component {
             <tbody>
               <tr>
                 <td>
-                  <Link to="/sh">
-                    <Button variant="info" onClick={this.onSecretHitlerClick}>Secret Hitler</Button>
-                  </Link>
+                  <Button variant="info" onClick={this.onSecretHitlerClick}>Secret Hitler</Button>
                 </td>
               </tr>
               <tr>
@@ -64,6 +83,17 @@ class App extends React.Component {
             </Form.Group>
           </Form>
         </div>
+        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+          <Modal.Header>
+            <Modal.Title>Not enough players</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>You need at least five players to play. Click 'Edit players' to add more players.</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseModal}>
+              Ok
+              </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
