@@ -41,12 +41,14 @@
   margin: 8px 12px 8px 12px;
 }
 
-.players-list {
-  min-height: 300px;
+.players-table {
+  color: white;
+  border: none;
+  box-shadow: none;
 }
 
-.player-element {
-  list-style-type: none;
+.dummy-player {
+  visibility: hidden;
 }
 
 body {

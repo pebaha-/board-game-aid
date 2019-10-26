@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Table from 'react-bootstrap/Table';
 
 class Players extends React.Component {
   constructor(props) {
@@ -61,11 +61,17 @@ class Players extends React.Component {
 
   renderPlayerList() {
     const players = this.props.players;
-    const playerList = players.map((player) =>
-      <li className="player-element" key={player}>
-        {player}
-      </li>
+    let playerList = players.map((player) =>
+      <tr key={player}>
+        <td>
+          {player}
+        </td>
+      </tr>
     );
+    while (playerList.length < 10) {
+      playerList.push(<tr key={playerList.length}><td className="dummy-player">{"Player " + (playerList.length + 1)}</td></tr>);
+    }
+
     return playerList;
   }
 
@@ -99,12 +105,14 @@ class Players extends React.Component {
               </Button>
               </div>
             </Form.Row>
+            <Form.Row>
+              <Table borderless size="sm" className="players-table">
+                <tbody>
+                  {this.renderPlayerList()}
+                </tbody>
+              </Table>
+            </Form.Row>
           </Form>
-          <ul>
-            <ListGroup className="players-list">
-              {this.renderPlayerList()}
-            </ListGroup>
-          </ul>
           <div>
             <Link to="/">
               <Button variant="secondary">
