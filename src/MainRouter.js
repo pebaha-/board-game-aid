@@ -1,10 +1,10 @@
 import React from 'react';
-import App from './App.js';
-import Players from './Players.js';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import App from './App';
+import Players from './Players';
 import history from './History';
-import SecretHitler from './SecretHitler.js';
-import ProtectedRoute from './ProtectedRoute.js';
+import SecretHitler from './SecretHitler';
+import ProtectedRoute from './ProtectedRoute';
 
 class MainRouter extends React.Component {
   render() {

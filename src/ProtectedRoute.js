@@ -18,7 +18,7 @@ class ProtectedRoute extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     players: state.players,
     seconds: state.seconds,

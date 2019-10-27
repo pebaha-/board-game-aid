@@ -10,8 +10,8 @@ class Players extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      playerName: "",
-      modalBody: "",
+      playerName: '',
+      modalBody: '',
       showModal: false,
     };
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -23,28 +23,25 @@ class Players extends React.Component {
     const players = this.props.players;
     if (playerName.length === 0) {
       this.setState({
-        modalBody: "You must enter a player name.",
+        modalBody: 'You must enter a player name.',
         showModal: true,
       });
-      return;
     }
     else if (players.includes(playerName)) {
       this.setState({
-        modalBody: playerName + " is already a player.",
+        modalBody: `${playerName} is already a player.`,
         showModal: true,
       });
-      return;
     }
     else if (players.length === 10) {
       this.setState({
-        modalBody: "You cannot add more than ten players. Please remove a player before adding a new one.",
+        modalBody: 'You cannot add more than ten players. Please remove a player before adding a new one.',
         showModal: true,
       });
-      return;
     }
     else {
       this.setState({
-        playerName: "",
+        playerName: '',
       });
       this.props.addPlayer(playerName);
       this.playerNameInput.focus();
@@ -53,24 +50,24 @@ class Players extends React.Component {
 
   handlePlayerDelete = (event) => {
     event.preventDefault();
-    let playerName = this.state.playerName.trim();
-    let players = this.props.players;
+    const playerName = this.state.playerName.trim();
+    const players = this.props.players;
     if (playerName.length === 0) {
       this.setState({
-        modalBody: "You must enter a player name.",
+        modalBody: 'You must enter a player name.',
         showModal: true,
       });
       return;
     }
-    else if (!players.includes(playerName)) {
+    if (!players.includes(playerName)) {
       this.setState({
-        modalBody: playerName + " is not a player.",
+        modalBody: `${playerName} is not a player.`,
         showModal: true,
       });
       return;
     }
     this.setState({
-      playerName: "",
+      playerName: '',
     });
     this.props.removePlayer(playerName);
     this.playerNameInput.focus();
@@ -78,24 +75,8 @@ class Players extends React.Component {
 
   handlePlayerChange = (event) => {
     this.setState({
-      playerName: event.target.value
+      playerName: event.target.value,
     });
-  }
-
-  renderPlayerList() {
-    const players = this.props.players;
-    let playerList = players.map((player) =>
-      <tr key={player}>
-        <td>
-          {player}
-        </td>
-      </tr>
-    );
-    while (playerList.length < 10) {
-      playerList.push(<tr key={playerList.length}><td className="dummy-player">{"Player " + (playerList.length + 1)}</td></tr>);
-    }
-
-    return playerList;
   }
 
   handleCloseModal() {
@@ -103,6 +84,20 @@ class Players extends React.Component {
       showModal: false,
     });
   };
+
+  renderPlayerList() {
+    const players = this.props.players;
+    const playerList = players.map((player) => <tr key={player}><td>{player}</td></tr>);
+    while (playerList.length < 10) {
+      playerList.push(
+        <tr key={playerList.length}>
+          <td className="dummy-player">`Player ${(playerList.length + 1)}`</td>
+        </tr>,
+      );
+    }
+
+    return playerList;
+  }
 
   render() {
     return (
@@ -127,12 +122,12 @@ class Players extends React.Component {
               <div>
                 <Button variant="success" onClick={this.handlePlayerAdd}>
                   Add
-              </Button>
+                </Button>
               </div>
               <div>
                 <Button variant="danger" onClick={this.handlePlayerDelete}>
                   Remove
-              </Button>
+                </Button>
               </div>
             </Form.Row>
             <Form.Row>
@@ -147,7 +142,7 @@ class Players extends React.Component {
             <Link to="/">
               <Button variant="secondary">
                 Go back
-            </Button>
+              </Button>
             </Link>
           </div>
         </div>
@@ -167,7 +162,7 @@ class Players extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     players: state.players,
   };
@@ -175,9 +170,9 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addPlayer: (player) => { dispatch({ type: 'ADD_PLAYER', player: player }) },
-    removePlayer: (player) => { dispatch({ type: 'REMOVE_PLAYER', player: player }) },
-  }
+    addPlayer: (player) => { dispatch({ type: 'ADD_PLAYER', player: player }); },
+    removePlayer: (player) => { dispatch({ type: 'REMOVE_PLAYER', player: player }); },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Players);

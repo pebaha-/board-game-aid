@@ -11,8 +11,8 @@ class SecretHitler extends React.Component {
     super(props);
     this.state = {
       playerRoles: {},
-      currentPlayer: "",
-      currentRole: "",
+      currentPlayer: '',
+      currentRole: '',
       currentPlayerIndex: 0,
       showRole: false,
       showParty: false,
@@ -55,14 +55,14 @@ class SecretHitler extends React.Component {
         break;
     }
 
-    rolesToAssign.push("Hitler");
+    rolesToAssign.push('Hitler');
 
     for (let i = 0; i < fascistCount; i++) {
-      rolesToAssign.push("Fascist");
+      rolesToAssign.push('Fascist');
     }
 
     for (let j = 0; j < playerCount - fascistCount - 1; j++) {
-      rolesToAssign.push("Liberal");
+      rolesToAssign.push('Liberal');
     }
 
     rolesToAssign = this.shuffle(rolesToAssign);
@@ -144,18 +144,18 @@ class SecretHitler extends React.Component {
     const playerRoles = this.state.playerRoles;
     const currentPlayer = this.state.currentPlayer;
     let otherFascists = this.props.players.filter(function (player) {
-      return playerRoles[player] === "Fascist" && player !== currentPlayer;
+      return playerRoles[player] === 'Fascist' && player !== currentPlayer;
     });
-    return otherFascists.join(", ");
+    return otherFascists.join(', ');
   };
 
   getHitler() {
-    return this.getKeyByValue(this.state.playerRoles, "Hitler");
+    return this.getKeyByValue(this.state.playerRoles, 'Hitler');
   };
 
   getParty() {
-    if (this.state.currentRole === "Hitler") {
-      return "Fascist";
+    if (this.state.currentRole === 'Hitler') {
+      return 'Fascist';
     }
     else return this.state.currentRole;
   };
@@ -193,25 +193,25 @@ class SecretHitler extends React.Component {
       <React.Fragment>
         <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
-            <div>{"Role: " + this.state.currentRole}</div>
+            <div>{'Role: ' + this.state.currentRole}</div>
           </td>
         </tr>
         <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
           <td>
-            <div>{this.state.currentRole === "Fascist" && this.props.players.length > 6 ? "Fascists: " + this.getOtherFascists() : ""}</div>
+            <div>{this.state.currentRole === 'Fascist' && this.props.players.length > 6 ? 'Fascists: ' + this.getOtherFascists() : ""}</div>
           </td>
         </tr>
-        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
+        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
           <td>
-            <div>{this.state.currentRole === "Fascist" ? "Hitler: " + this.getHitler() : ""}</div>
+            <div>{this.state.currentRole === 'Fascist' ? 'Hitler: ' + this.getHitler() : ''}</div>
           </td>
         </tr>
-        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
+        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
           <td>
-            <div>{this.state.currentRole === "Hitler" && this.props.players.length < 7 ? "Fascist: " + this.getOtherFascists() : ""}</div>
+            <div>{this.state.currentRole === 'Hitler' && this.props.players.length < 7 ? 'Fascist: ' + this.getOtherFascists() : ''}</div>
           </td>
         </tr>
-        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
+        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
           <td>
             <div>{this.state.secondsRemaining}</div>
           </td>
@@ -248,8 +248,7 @@ class SecretHitler extends React.Component {
           <header className="App-header">
             <p>Secret Hitler</p>
           </header>
-          <div className="App-body">
-          </div>
+          <div className="App-body"/>
         </div>
       );
     }
@@ -267,14 +266,14 @@ class SecretHitler extends React.Component {
                     <div>{this.state.currentPlayer}</div>
                   </td>
                 </tr>
-                <tr className={this.state.showParty ? "visible-party-info" : "hidden-party-info"}>
+                <tr className={this.state.showParty ? 'visible-party-info' : 'hidden-party-info'}>
                   <td>
                     {this.getParty()}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <Button variant="info" onClick={this.onPartyClick}>{this.state.showParty ? "Hide party" : "Show party"}</Button>
+                    <Button variant="info" onClick={this.onPartyClick}>{this.state.showParty ? 'Hide party' : 'Show party'}</Button>
                   </td>
                 </tr>
                 <tr>
@@ -330,7 +329,7 @@ class SecretHitler extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     players: state.players,
     seconds: state.seconds,
