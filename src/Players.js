@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
@@ -19,8 +20,9 @@ class Players extends React.Component {
 
   handlePlayerAdd = (event) => {
     event.preventDefault();
-    const playerName = this.state.playerName.trim();
-    const players = this.props.players;
+    let { playerName } = this.state;
+    playerName = playerName.trim();
+    const { players } = this.props;
     if (playerName.length === 0) {
       this.setState({
         modalBody: 'You must enter a player name.',
@@ -43,15 +45,17 @@ class Players extends React.Component {
       this.setState({
         playerName: '',
       });
-      this.props.addPlayer(playerName);
+      const { addPlayer } = this.props;
+      addPlayer(playerName);
       this.playerNameInput.focus();
     }
   }
 
   handlePlayerDelete = (event) => {
     event.preventDefault();
-    const playerName = this.state.playerName.trim();
-    const players = this.props.players;
+    let { playerName } = this.state;
+    playerName = playerName.trim();
+    const { players } = this.props;
     if (playerName.length === 0) {
       this.setState({
         modalBody: 'You must enter a player name.',
@@ -69,7 +73,8 @@ class Players extends React.Component {
     this.setState({
       playerName: '',
     });
-    this.props.removePlayer(playerName);
+    const { removePlayer } = this.props;
+    removePlayer(playerName);
     this.playerNameInput.focus();
   }
 
@@ -86,7 +91,7 @@ class Players extends React.Component {
   };
 
   renderPlayerList() {
-    const players = this.props.players;
+    const { players } = this.props;
     const playerList = players.map((player) => <tr key={player}><td>{player}</td></tr>);
     while (playerList.length < 10) {
       playerList.push(
@@ -100,6 +105,7 @@ class Players extends React.Component {
   }
 
   render() {
+    const { showModal, modalBody, playerName } = this.state;
     return (
       <div>
         <header className="App-header">
@@ -113,7 +119,7 @@ class Players extends React.Component {
                   type="text"
                   placeholder="Enter player name"
                   ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
-                  value={this.state.playerName}
+                  value={playerName}
                   onChange={this.handlePlayerChange}
                 />
               </Form.Group>
@@ -146,11 +152,11 @@ class Players extends React.Component {
             </Link>
           </div>
         </div>
-        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+        <Modal show={showModal} onHide={this.handleCloseModal}>
           <Modal.Header>
             <Modal.Title>Error adding player</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{this.state.modalBody}</Modal.Body>
+          <Modal.Body>{modalBody}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleCloseModal}>
               Ok
@@ -174,5 +180,11 @@ function mapDispatchToProps(dispatch) {
     removePlayer: (player) => { dispatch({ type: 'REMOVE_PLAYER', player: player }); },
   };
 }
+
+Players.propTypes = {
+  players: PropTypes.arrayOf.isRequired,
+  addPlayer: PropTypes.func.isRequired,
+  removePlayer: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Players);
