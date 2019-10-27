@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
@@ -16,16 +17,13 @@ class App extends React.Component {
     };
     this.onSecretHitlerClick = this.onSecretHitlerClick.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-
-  handleChange(event) {
-    const seconds = (event.target.validity.valid) ? event.target.value : this.props.seconds;
-    this.props.setTimerDuration(seconds);
-  };
 
   onSecretHitlerClick() {
     // @TODO: do not hardcore minimum required players
-    if (this.props.players.length < 5) {
+    const { players } = this.props;
+    if (players.length < 5) {
       this.setState({
         showModal: true,
       });
@@ -37,6 +35,13 @@ class App extends React.Component {
     }
   };
 
+  handleChange(event) {
+    const { seconds } = this.props;
+    const { setTimerDuration } = this.props;
+    const newSeconds = (event.target.validity.valid) ? event.target.value : seconds;
+    setTimerDuration(newSeconds);
+  };
+
   handleCloseModal() {
     this.setState({
       showModal: false,
@@ -44,7 +49,9 @@ class App extends React.Component {
   };
 
   render() {
-    if (this.state.redirectToSecretHitler) {
+    const { redirectToSecretHitler, showModal } = this.state;
+    const { seconds } = this.props;
+    if (redirectToSecretHitler) {
       return <Redirect push to="/sh" />;
     }
     return (
@@ -77,21 +84,24 @@ class App extends React.Component {
                 min="1"
                 max="60"
                 placeholder="Enter role timer in seconds"
-                value={this.props.seconds}
-                onChange={this.handleChange.bind(this)}
+                value={seconds}
+                onChange={this.handleChange}
               />
             </Form.Group>
           </Form>
         </div>
-        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+        <Modal show={showModal} onHide={this.handleCloseModal}>
           <Modal.Header>
             <Modal.Title>Not enough players</Modal.Title>
           </Modal.Header>
-          <Modal.Body>You need at least five players to play. Click 'Edit players' to add more players.</Modal.Body>
+          <Modal.Body>
+            You need at least five players to play.
+            Click `&apos;`Edit players`&apos;` to add more players.
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleCloseModal}>
               Ok
-              </Button>
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -99,7 +109,7 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     players: state.players,
     seconds: state.seconds,
@@ -108,8 +118,14 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setTimerDuration: (seconds) => { dispatch({ type: 'SET_TIMER_DURATION', seconds: seconds }) },
-  }
+    setTimerDuration: (seconds) => { dispatch({ type: 'SET_TIMER_DURATION', seconds: seconds }); },
+  };
 }
+
+App.propTypes = {
+  players: PropTypes.arrayOf.isRequired,
+  seconds: PropTypes.number.isRequired,
+  setTimerDuration: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
