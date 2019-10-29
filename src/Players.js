@@ -13,6 +13,7 @@ class Players extends React.Component {
     this.state = {
       playerName: '',
       modalBody: '',
+      modalTitle: '',
       showModal: false,
     };
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -26,18 +27,21 @@ class Players extends React.Component {
     if (playerName.length === 0) {
       this.setState({
         modalBody: 'You must enter a player name.',
+        modalTitle: 'Error adding player',
         showModal: true,
       });
     }
     else if (players.includes(playerName)) {
       this.setState({
         modalBody: `${playerName} is already a player.`,
+        modalTitle: 'Error adding player',
         showModal: true,
       });
     }
     else if (players.length === 10) {
       this.setState({
         modalBody: 'You cannot add more than ten players. Please remove a player before adding a new one.',
+        modalTitle: 'Error adding player',
         showModal: true,
       });
     }
@@ -59,6 +63,7 @@ class Players extends React.Component {
     if (playerName.length === 0) {
       this.setState({
         modalBody: 'You must enter a player name.',
+        modalTitle: 'Error removing player',
         showModal: true,
       });
       return;
@@ -66,6 +71,7 @@ class Players extends React.Component {
     if (!players.includes(playerName)) {
       this.setState({
         modalBody: `${playerName} is not a player.`,
+        modalTitle: 'Error removing player',
         showModal: true,
       });
       return;
@@ -105,7 +111,7 @@ class Players extends React.Component {
   }
 
   render() {
-    const { showModal, modalBody, playerName } = this.state;
+    const { showModal, modalBody, modalTitle, playerName } = this.state;
     return (
       <div>
         <header className="App-header">
@@ -154,7 +160,7 @@ class Players extends React.Component {
         </div>
         <Modal show={showModal} onHide={this.handleCloseModal}>
           <Modal.Header>
-            <Modal.Title>Error adding player</Modal.Title>
+            <Modal.Title>{modalTitle}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{modalBody}</Modal.Body>
           <Modal.Footer>
