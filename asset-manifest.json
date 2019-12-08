@@ -5,18 +5,18 @@
     "main.js.map": "/board-game-aid/static/js/main.80bde230.chunk.js.map",
     "runtime-main.js": "/board-game-aid/static/js/runtime-main.aa6a46e6.js",
     "runtime-main.js.map": "/board-game-aid/static/js/runtime-main.aa6a46e6.js.map",
-    "static/css/2.f8ac228f.chunk.css": "/board-game-aid/static/css/2.f8ac228f.chunk.css",
+    "static/css/2.247797c6.chunk.css": "/board-game-aid/static/css/2.247797c6.chunk.css",
     "static/js/2.d99a9601.chunk.js": "/board-game-aid/static/js/2.d99a9601.chunk.js",
     "static/js/2.d99a9601.chunk.js.map": "/board-game-aid/static/js/2.d99a9601.chunk.js.map",
     "index.html": "/board-game-aid/index.html",
-    "precache-manifest.ccd9244252ba99eba6f53fea9a2b6cdb.js": "/board-game-aid/precache-manifest.ccd9244252ba99eba6f53fea9a2b6cdb.js",
+    "precache-manifest.6d48a73753c258de67dbd9106c3b011b.js": "/board-game-aid/precache-manifest.6d48a73753c258de67dbd9106c3b011b.js",
     "service-worker.js": "/board-game-aid/service-worker.js",
-    "static/css/2.f8ac228f.chunk.css.map": "/board-game-aid/static/css/2.f8ac228f.chunk.css.map",
+    "static/css/2.247797c6.chunk.css.map": "/board-game-aid/static/css/2.247797c6.chunk.css.map",
     "static/css/main.041f7137.chunk.css.map": "/board-game-aid/static/css/main.041f7137.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.aa6a46e6.js",
-    "static/css/2.f8ac228f.chunk.css",
+    "static/css/2.247797c6.chunk.css",
     "static/js/2.d99a9601.chunk.js",
     "static/css/main.041f7137.chunk.css",
     "static/js/main.80bde230.chunk.js"
