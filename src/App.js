@@ -123,7 +123,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 App.propTypes = {
-  players: PropTypes.arrayOf.isRequired,
+  players: PropTypes.array.isRequired,
   seconds: PropTypes.number.isRequired,
   setTimerDuration: PropTypes.func.isRequired,
 };

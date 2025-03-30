@@ -188,7 +188,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Players.propTypes = {
-  players: PropTypes.arrayOf.isRequired,
+  players: PropTypes.array.isRequired,
   addPlayer: PropTypes.func.isRequired,
   removePlayer: PropTypes.func.isRequired,
 };
