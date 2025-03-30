@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-body {
+  margin: 0;
+  height: 100%;
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(2px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.players-form {
+  padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-container > div {
+  margin: 8px 12px 8px 12px;
+}
+
+.players-table {
+  color: white;
+  border: none;
+  box-shadow: none;
+}
+
+.dummy-player {
+  visibility: hidden;
+}
+
+.visible-role-info {
+  visibility: visible;
+}
+
+.hidden-role-info {
+  visibility: hidden;
+}
+
+.visible-party-info {
+  visibility: visible;
+}
+
+.hidden-party-info {
+  visibility: hidden;
+}
+
+body {
+  background-color: #282c34;
+}
