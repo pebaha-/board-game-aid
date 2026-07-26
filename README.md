@@ -8,8 +8,8 @@ Secret Hitler role assignment.
 Install dependencies and start the Vite development server:
 
 ```sh
-npm install
-npm start
+pnpm install
+pnpm dev
 ```
 
 Vite prints the local development URL in the terminal.
@@ -19,16 +19,16 @@ Vite prints the local development URL in the terminal.
 Run the test suite and create a production build:
 
 ```sh
-npm test
-npm run build
+pnpm test
+pnpm build
 ```
 
 The production output is written to `dist`.
 
 ## Deployment
 
-Deploy the production build to GitHub Pages:
+Create the production files that are deployed to GitHub Pages:
 
 ```sh
-npm run deploy
+pnpm build
 ```

@@ -2,6 +2,7 @@
   "name": "boardgamehelper",
   "version": "0.1.0",
   "private": false,
+  "packageManager": "pnpm@11.17.0",
   "homepage": "https://pebaha-.github.io/board-game-aid",
   "dependencies": {
     "bootstrap": "^5.3.8",
@@ -31,7 +32,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^6.0.4",
     "jsdom": "^29.1.1",
