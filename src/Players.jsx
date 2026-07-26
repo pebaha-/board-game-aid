@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
 import { HashLink as Link } from './navigation';
 
 class Players extends React.Component {
@@ -99,65 +97,44 @@ class Players extends React.Component {
 
   renderPlayerList() {
     const { players } = this.props;
-    const playerList = players.map((player) => <tr key={player}><td>{player}</td></tr>);
-    while (playerList.length < 10) {
-      playerList.push(
-        <tr key={playerList.length}>
-          <td className="dummy-player">`Player ${(playerList.length + 1)}`</td>
-        </tr>,
-      );
+    if (players.length === 0) {
+      return <li className="empty-state">No players added yet.</li>;
     }
-
-    return playerList;
+    return players.map((player) => <li key={player}>{player}</li>);
   }
 
   render() {
     const { showModal, modalBody, modalTitle, playerName } = this.state;
     return (
-      <div>
+      <div className="App">
         <header className="App-header">
-          <p>Players</p>
+          <span className="eyebrow">Player setup</span>
+          <h1>Players</h1>
+          <p className="header-subtitle">{this.props.players.length} of 10 seats filled</p>
         </header>
         <div className="App-body">
           <Form className="players-form">
-            <Row>
-              <Form.Group controlId="formPlayer">
-                <Form.Control
-                  type="text"
-                  placeholder="Enter player name"
-                  ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
-                  value={playerName}
-                  onChange={this.handlePlayerChange}
-                />
-              </Form.Group>
-            </Row>
-            <Row className="flex-container">
-              <div>
-                <Button variant="success" onClick={this.handlePlayerAdd}>
-                  Add
-                </Button>
-              </div>
-              <div>
-                <Button variant="danger" onClick={this.handlePlayerDelete}>
-                  Remove
-                </Button>
-              </div>
-            </Row>
-            <Row>
-              <Table borderless size="sm" className="players-table">
-                <tbody>
-                  {this.renderPlayerList()}
-                </tbody>
-              </Table>
-            </Row>
+            <Form.Group className="player-input" controlId="formPlayer">
+              <Form.Label>Player name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="e.g. Alex"
+                ref={(playerNameInput) => { this.playerNameInput = playerNameInput; }}
+                value={playerName}
+                onChange={this.handlePlayerChange}
+              />
+            </Form.Group>
+            <div className="player-actions">
+              <Button variant="primary" onClick={this.handlePlayerAdd}>Add player</Button>
+              <Button variant="outline-light" onClick={this.handlePlayerDelete}>Remove</Button>
+            </div>
+            <ol className="players-list" aria-label="Players">
+              {this.renderPlayerList()}
+            </ol>
           </Form>
-          <div>
-            <Link to="/">
-              <Button variant="secondary">
-                Go back
-              </Button>
-            </Link>
-          </div>
+          <Button className="back-button" as={Link} to="/" variant="link">
+            <span aria-hidden="true">←</span> Back to games
+          </Button>
         </div>
         <Modal show={showModal} onHide={this.handleCloseModal}>
           <Modal.Header>

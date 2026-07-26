@@ -3,7 +3,6 @@ import './App.css';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table';
 import { Navigate } from './navigation';
 
 class SecretHitler extends React.Component {
@@ -191,31 +190,21 @@ class SecretHitler extends React.Component {
   renderRoleInfo() {
     return (
       <React.Fragment>
-        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
-          <td>
-            <div>{'Role: ' + this.state.currentRole}</div>
-          </td>
-        </tr>
-        <tr className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
-          <td>
-            <div>{this.state.currentRole === 'Fascist' && this.props.players.length > 6 ? 'Fascists: ' + this.getOtherFascists() : ""}</div>
-          </td>
-        </tr>
-        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
-          <td>
-            <div>{this.state.currentRole === 'Fascist' ? 'Hitler: ' + this.getHitler() : ''}</div>
-          </td>
-        </tr>
-        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
-          <td>
-            <div>{this.state.currentRole === 'Hitler' && this.props.players.length < 7 ? 'Fascist: ' + this.getOtherFascists() : ''}</div>
-          </td>
-        </tr>
-        <tr className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
-          <td>
-            <div>{this.state.secondsRemaining}</div>
-          </td>
-        </tr>
+        <div className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
+          {'Role: ' + this.state.currentRole}
+        </div>
+        <div className={this.state.showRole ? "visible-role-info" : "hidden-role-info"}>
+          {this.state.currentRole === 'Fascist' && this.props.players.length > 6 ? 'Fascists: ' + this.getOtherFascists() : ""}
+        </div>
+        <div className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
+          {this.state.currentRole === 'Fascist' ? 'Hitler: ' + this.getHitler() : ''}
+        </div>
+        <div className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
+          {this.state.currentRole === 'Hitler' && this.props.players.length < 7 ? 'Fascist: ' + this.getOtherFascists() : ''}
+        </div>
+        <div className={this.state.showRole ? 'visible-role-info' : 'hidden-role-info'}>
+          {this.state.secondsRemaining}
+        </div>
       </React.Fragment>
     );
   };
@@ -246,7 +235,9 @@ class SecretHitler extends React.Component {
       return (
         <div className="App">
           <header className="App-header">
-            <p>Secret Hitler</p>
+            <span className="eyebrow">Secret Hitler</span>
+            <h1>Preparing roles</h1>
+            <p className="header-subtitle">Shuffling the table…</p>
           </header>
           <div className="App-body"/>
         </div>
@@ -256,35 +247,22 @@ class SecretHitler extends React.Component {
       return (
         <div className="App">
           <header className="App-header">
-            <p>Secret Hitler</p>
+            <span className="eyebrow">Secret Hitler</span>
+            <h1>Party check</h1>
+            <p className="header-subtitle">Pass the device to the named player.</p>
           </header>
           <div className="App-body">
-            <Table borderless size="sm" className="players-table">
-              <tbody>
-                <tr>
-                  <td>
-                    <div>{this.state.currentPlayer}</div>
-                  </td>
-                </tr>
-                <tr className={this.state.showParty ? 'visible-party-info' : 'hidden-party-info'}>
-                  <td>
-                    {this.getParty()}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Button variant="info" onClick={this.onPartyClick}>{this.state.showParty ? 'Hide party' : 'Show party'}</Button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Button variant="info" onClick={this.onNextPlayerClick}>Next player</Button>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <section className="game-panel" aria-label="Player party">
+              <span className="panel-label">Current player</span>
+              <div className="current-player">{this.state.currentPlayer}</div>
+              <div className={this.state.showParty ? 'visible-party-info' : 'hidden-party-info'}>
+                {this.getParty()}
+              </div>
+              <Button variant="primary" onClick={this.onPartyClick}>{this.state.showParty ? 'Hide party' : 'Show party'}</Button>
+              <Button variant="outline-light" onClick={this.onNextPlayerClick}>Next player</Button>
+            </section>
           </div>
-          <Button variant="danger" onClick={this.showQuitModal}>Quit game</Button>
+          <Button className="quit-button" variant="link" onClick={this.showQuitModal}>Quit game</Button>
           <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
             <Modal.Header>
               <Modal.Title>Quit game</Modal.Title>
@@ -305,24 +283,17 @@ class SecretHitler extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>Secret Hitler</p>
+          <span className="eyebrow">Secret Hitler</span>
+          <h1>Reveal your role</h1>
+          <p className="header-subtitle">Pass the device to the named player.</p>
         </header>
         <div className="App-body">
-          <Table borderless size="sm" className="players-table">
-            <tbody>
-              <tr>
-                <td>
-                  <div>{this.state.currentPlayer}</div>
-                </td>
-              </tr>
-              {this.renderRoleInfo()}
-              <tr>
-                <td>
-                  <Button variant="info" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</Button>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+          <section className="game-panel" aria-label="Player role">
+            <span className="panel-label">Current player</span>
+            <div className="current-player">{this.state.currentPlayer}</div>
+            {this.renderRoleInfo()}
+            <Button variant="primary" disabled={this.state.disabledRoleButton} onClick={this.onShowRoleClick}>Show role</Button>
+          </section>
         </div>
       </div>
     );

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import { HashLink as Link, Navigate } from './navigation';
 
@@ -57,36 +56,33 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>Board Game Aid</p>
+          <span className="eyebrow">Tabletop companion</span>
+          <h1>Board Game Aid</h1>
+          <p className="header-subtitle">Set up the table and get playing faster.</p>
         </header>
         <div className="App-body">
-          <Table borderless size="sm">
-            <tbody>
-              <tr>
-                <td>
-                  <Button variant="info" onClick={this.onSecretHitlerClick}>Secret Hitler</Button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <Link to="/players">
-                    <Button variant="info">Edit players</Button>
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-          <Form>
+          <nav className="button-stack" aria-label="Game actions">
+            <Button className="game-button" variant="primary" onClick={this.onSecretHitlerClick}>
+              <span>Secret Hitler</span>
+              <span aria-hidden="true">→</span>
+            </Button>
+            <Button className="game-button secondary-button" as={Link} to="/players" variant="outline-light">
+              <span>Edit players</span>
+              <span aria-hidden="true">＋</span>
+            </Button>
+          </nav>
+          <Form className="timer-form">
             <Form.Group controlId="formRoleSeconds">
-              <Form.Label>Role Timer Seconds</Form.Label>
+              <Form.Label>Role reveal timer</Form.Label>
               <Form.Control
                 type="number"
                 min="1"
                 max="60"
-                placeholder="Enter role timer in seconds"
+                aria-describedby="timerHelp"
                 value={seconds}
                 onChange={this.handleChange}
               />
+              <Form.Text id="timerHelp">Seconds each player can view their role.</Form.Text>
             </Form.Group>
           </Form>
         </div>
@@ -96,7 +92,7 @@ class App extends React.Component {
           </Modal.Header>
           <Modal.Body>
             You need at least five players to play.
-            Click `&apos;`Edit players`&apos;` to add more players.
+            Click 'Edit players' to add more players.
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleCloseModal}>

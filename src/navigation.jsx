@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export function HashLink({ children, to }) {
-  return <a href={`#${to}`}>{children}</a>;
+export function HashLink({ children, to, ...props }) {
+  return <a {...props} href={`#${to}`}>{children}</a>;
 }
 
 HashLink.propTypes = {
