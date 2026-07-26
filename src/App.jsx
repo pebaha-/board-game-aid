@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
+import { HashLink as Link, Navigate } from './navigation';
 
 class App extends React.Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class App extends React.Component {
     const { redirectToSecretHitler, showModal } = this.state;
     const { seconds } = this.props;
     if (redirectToSecretHitler) {
-      return <Redirect push to="/sh" />;
+      return <Navigate to="/sh" />;
     }
     return (
       <div className="App">

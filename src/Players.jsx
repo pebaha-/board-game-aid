@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
+import { HashLink as Link } from './navigation';
 
 class Players extends React.Component {
   constructor(props) {
@@ -119,7 +120,7 @@ class Players extends React.Component {
         </header>
         <div className="App-body">
           <Form className="players-form">
-            <Form.Row>
+            <Row>
               <Form.Group controlId="formPlayer">
                 <Form.Control
                   type="text"
@@ -129,8 +130,8 @@ class Players extends React.Component {
                   onChange={this.handlePlayerChange}
                 />
               </Form.Group>
-            </Form.Row>
-            <Form.Row className="flex-container">
+            </Row>
+            <Row className="flex-container">
               <div>
                 <Button variant="success" onClick={this.handlePlayerAdd}>
                   Add
@@ -141,14 +142,14 @@ class Players extends React.Component {
                   Remove
                 </Button>
               </div>
-            </Form.Row>
-            <Form.Row>
+            </Row>
+            <Row>
               <Table borderless size="sm" className="players-table">
                 <tbody>
                   {this.renderPlayerList()}
                 </tbody>
               </Table>
-            </Form.Row>
+            </Row>
           </Form>
           <div>
             <Link to="/">

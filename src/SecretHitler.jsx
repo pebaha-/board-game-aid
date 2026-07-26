@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+import { Navigate } from './navigation';
 
 class SecretHitler extends React.Component {
   constructor(props) {
@@ -240,7 +240,7 @@ class SecretHitler extends React.Component {
 
   render() {
     if (this.state.quitGame) {
-      return <Redirect push to="/" />;
+      return <Navigate to="/" />;
     }
     if (this.state.playerRoles.length < this.props.players.length || !this.state.currentPlayer) {
       return (
@@ -285,7 +285,7 @@ class SecretHitler extends React.Component {
             </Table>
           </div>
           <Button variant="danger" onClick={this.showQuitModal}>Quit game</Button>
-          <Modal show={this.state.showModal} onHide={this.handleClose}>
+          <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
             <Modal.Header>
               <Modal.Title>Quit game</Modal.Title>
             </Modal.Header>
